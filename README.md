@@ -1,2 +1,2 @@
-# cognito-serverless
-🔑 AWS Cognito OAuth Authentication on Serverless
+<!----- BEGIN GHOST DOCS HEADER ----->
+<!----- END GHOST DOCS HEADER ----->
