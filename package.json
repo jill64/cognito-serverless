@@ -1,0 +1,54 @@
+{
+  "name": "cognito-serverless",
+  "description": "🔑 AWS Cognito Hosted UI OAuth on Serverless",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "!**/*.test.*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc && npx publint",
+    "prepack": "npm run build",
+    "lint": "npx eslint .",
+    "format": "npx prettier -w ."
+  },
+  "prettier": "@jill64/prettier-config",
+  "devDependencies": {
+    "@jill64/eslint-config-ts": "1.1.2",
+    "@jill64/prettier-config": "1.0.0",
+    "typescript": "5.3.3"
+  },
+  "dependencies": {
+    "buffer": "6.0.3",
+    "typescanner": "0.5.3"
+  },
+  "homepage": "https://github.com/jill64/cognito-serverless#readme",
+  "license": "MIT",
+  "bugs": "https://github.com/jill64/cognito-serverless/issues",
+  "author": {
+    "name": "jill64",
+    "email": "intents.turrets0h@icloud.com",
+    "url": "https://github.com/jill64",
+    "image": "https://avatars.githubusercontent.com/u/143883742?v=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jill64/cognito-serverless.git",
+    "image": "https://opengraph.githubassets.com/131957e3b718715619f2daccae281a5278ab77c2130c442e478c235d384d0052/jill64/cognito-serverless"
+  },
+  "keywords": [
+    "aws",
+    "beta",
+    "cognito",
+    "hosted-ui",
+    "serverless"
+  ]
+}
