@@ -1,22 +1,14 @@
 import { Buffer } from 'buffer'
-import { number, scanner, string } from 'typescanner'
+import { number, optional, scanner, string } from 'typescanner'
 import { CookieOptions } from './index.js'
 import { isUserInfoResponse } from './isUserInfoResponse.js'
 import { AuthParam } from './types/AuthParam.js'
 import { Guarded } from './types/Guarded.js'
 
-const cookie_config: CookieOptions = {
-  httpOnly: true,
-  secure: true,
-  sameSite: 'strict',
-  path: '/',
-  maxAge: 60 * 60 * 24 * 30
-}
-
 const is_auth_code_response = scanner({
   access_token: string,
   id_token: string,
-  refresh_token: string,
+  refresh_token: optional(string),
   expires_in: number
 })
 
@@ -45,20 +37,34 @@ export class Auth {
     return ['aws.cognito.signin.user.admin', ...this.scopes].join('+')
   }
 
-  private async save_tokens({ cookies }: AuthParam, data: AuthCodeResponse) {
+  private get_cookie_config(
+    { url }: AuthParam,
+    maxAge = 60 * 60 * 24 * 30
+  ): CookieOptions {
+    return {
+      httpOnly: true,
+      secure: new URL(url).protocol === 'https:' ? true : false,
+      sameSite: 'lax',
+      path: '/',
+      maxAge
+    }
+  }
+
+  private async save_tokens(param: AuthParam, data: AuthCodeResponse) {
+    const { cookies } = param
     const { access_token, id_token, refresh_token, expires_in } = data
 
-    cookies.set('access_token', access_token, {
-      ...cookie_config,
-      maxAge: expires_in
-    })
+    cookies.set(
+      'access_token',
+      access_token,
+      this.get_cookie_config(param, expires_in)
+    )
 
-    cookies.set('id_token', id_token, {
-      ...cookie_config,
-      maxAge: expires_in
-    })
+    cookies.set('id_token', id_token, this.get_cookie_config(param, expires_in))
 
-    cookies.set('refresh_token', refresh_token, cookie_config)
+    if (refresh_token) {
+      cookies.set('refresh_token', refresh_token, this.get_cookie_config(param))
+    }
   }
 
   private async exchange_code(param: AuthParam) {
