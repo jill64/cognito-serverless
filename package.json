@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsc && npx publint",
     "prepack": "npm run build",
-    "lint": "npx eslint . && npx depcheck",
+    "lint": "npx eslint .",
     "format": "npx prettier -w ."
   },
   "prettier": "@jill64/prettier-config",
@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "buffer": "6.0.3",
-    "typescanner": "^0.5.3"
+    "typescanner": "0.5.3"
   }
 }
