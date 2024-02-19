@@ -1,9 +1,9 @@
 import { Buffer } from 'buffer'
 import { number, scanner, string } from 'typescanner'
 import { CookieOptions } from './index.js'
+import { isUserInfoResponse } from './isUserInfoResponse.js'
 import { AuthParam } from './types/AuthParam.js'
 import { Guarded } from './types/Guarded.js'
-import { isUserInfoResponse } from './isUserInfoResponse.js'
 
 const cookie_config: CookieOptions = {
   httpOnly: true,
@@ -21,6 +21,12 @@ const is_auth_code_response = scanner({
 })
 
 type AuthCodeResponse = Guarded<typeof is_auth_code_response>
+
+const gen_redirect_uri = (param: AuthParam) => {
+  const { url, redirect_uri = url.origin } = param
+
+  return encodeURIComponent(redirect_uri)
+}
 
 const save_tokens = async ({ cookies }: AuthParam, data: AuthCodeResponse) => {
   const { access_token, id_token, refresh_token, expires_in } = data
@@ -57,7 +63,7 @@ const exchange_code = async (param: AuthParam) => {
     },
     body: `grant_type=authorization_code&client_id=${
       env.COGNITO_CLIENT_ID
-    }&code=${code}&redirect_uri=${encodeURIComponent(url.origin)}`
+    }&code=${code}&redirect_uri=${gen_redirect_uri(param)}`
   })
 
   const data = await response.json()
@@ -134,7 +140,15 @@ const exchange_token = async (param: AuthParam) => {
   return user_info
 }
 
+const gen_scope_param = (param: AuthParam) => {
+  const { scopes = [] } = param
+
+  return ['aws.cognito.signin.user.admin', ...scopes].join('+')
+}
+
 export const auth = async (param: AuthParam) => {
+  const { env } = param
+
   const user_info =
     (await get_user_info(param)) ??
     (await exchange_token(param)) ??
@@ -156,5 +170,12 @@ export const auth = async (param: AuthParam) => {
     )
   }
 
-  return null
+  const redirect_url = new URL(`https://${env.COGNITO_DOMAIN}/oauth2/authorize`)
+
+  redirect_url.searchParams.set('client_id', env.COGNITO_CLIENT_ID)
+  redirect_url.searchParams.set('response_type', 'code')
+  redirect_url.searchParams.set('scope', gen_scope_param(param))
+  redirect_url.searchParams.set('redirect_uri', gen_redirect_uri(param))
+
+  return redirect_url
 }

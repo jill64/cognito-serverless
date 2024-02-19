@@ -9,4 +9,5 @@ export type AuthParam = {
     COGNITO_CLIENT_SECRET: string
   }
   redirect_uri?: string
+  scopes?: ('openid' | 'profile' | 'email' | 'phone')[]
 }
