@@ -8,6 +8,8 @@
 
 <!----- END GHOST DOCS BADGES ----->
 
+🔑 AWS Cognito Hosted UI OAuth on Serverless
+
 <!----- END GHOST DOCS HEADER ----->
 
 ## Installation
