@@ -27,6 +27,7 @@
     "typescript": "5.3.3"
   },
   "dependencies": {
+    "@types/cookie": "0.6.0",
     "buffer": "6.0.3",
     "typescanner": "0.5.3"
   },
