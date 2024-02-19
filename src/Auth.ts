@@ -101,9 +101,7 @@ export class Auth {
 
     this.save_tokens(param, data)
 
-    const user_info = await this.get_user_info(param)
-
-    return user_info
+    return this.pick_redirect_uri(param)
   }
 
   private pick_redirect_uri(param: AuthParam) {
