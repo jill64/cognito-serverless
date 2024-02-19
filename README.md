@@ -23,10 +23,31 @@ npm i cognito-serverless
 Add code in your middleware or route to authenticate user.
 
 ```js
-import { auth } from 'cognito-server'
+import { Auth } from 'cognito-server'
+
+const cognito = new Auth(
+  {
+    COGNITO_DOMAIN: 'auth.example.com',
+    COGNITO_CLIENT_ID: 'client-id',
+    COGNITO_CLIENT_SECRET: 'client-secret'
+  },
+  /*
+   * The scopes of the access request.
+   * @optional
+   * @default ['openid', 'profile', 'email']
+   */
+  scopes: ['openid', 'profile', 'email']
+
+  /*
+   * After successful authentication, the user will be redirected to this URL.
+   * @optional
+   * @default url.origin
+   */
+  redirect_uri: 'https://example.com/callback'
+)
 
 /* UserInfo | URL */
-const result = await auth({
+const result = await cognito.auth({
   url: new URL('https://example.com'),
   cookies: {
     get: (key) => {
@@ -36,27 +57,12 @@ const result = await auth({
       /** set cookie */
     }
   },
-  env: {
-    COGNITO_DOMAIN: 'auth.example.com',
-    COGNITO_CLIENT_ID: 'client-id',
-    COGNITO_CLIENT_SECRET: 'client-secret',
-  },
-  /*
-   * After successful authentication, the user will be redirected to this URL.
-   * @optional
-   * @default url.origin
-   */
-  redirect_uri: 'https://example.com/callback',
-  /*
-   * The scopes of the access request.
-   * @optional
-   * @default ['openid', 'profile', 'email']
-   */
-  scope: ['openid', 'profile', 'email'],
+  // Override class config (optional)
+  redirect_uri: 'https://example.com/callback'
 })
 
-if (result instanceof URL) {
-  /* Redirect to `result` (Cognito Hosted UI) */
+if (typeof result === 'string') {
+  /* Please redirect to `result` (Cognito Hosted UI) */
 }
 
 else {
