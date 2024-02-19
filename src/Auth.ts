@@ -185,6 +185,48 @@ export class Auth {
       )
     }
 
-    return `https://${this.env.COGNITO_DOMAIN}/oauth2/authorize?client_id=${this.env.COGNITO_CLIENT_ID}&response_type=code&scope=${this.gen_scoped_param()}&redirect_uri=${this.redirect_uri ?? param.redirect_uri}`
+    return `https://${this.env.COGNITO_DOMAIN}/oauth2/authorize?client_id=${
+      this.env.COGNITO_CLIENT_ID
+    }&response_type=code&scope=${this.gen_scoped_param()}&redirect_uri=${
+      this.redirect_uri ?? param.redirect_uri
+    }`
+  }
+
+  async logout(param: AuthParam) {
+    const { cookies, url } = param
+
+    const refresh_token = cookies.get('refresh_token')
+
+    const response = await fetch(
+      `https://${this.env.COGNITO_DOMAIN}/oauth2/revoke`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization:
+            'Basic ' +
+            Buffer.from(
+              `${this.env.COGNITO_CLIENT_ID}:${this.env.COGNITO_CLIENT_SECRET}`
+            ).toString('base64')
+        },
+        body: `token=${refresh_token}`
+      }
+    )
+
+    cookies.set('id_token', '', { path: '/', maxAge: 0 })
+    cookies.set('refresh_token', '', { path: '/', maxAge: 0 })
+    cookies.set('access_token', '', { path: '/', maxAge: 0 })
+
+    if (!response.ok) {
+      throw new Error('Failed to revoke token')
+    }
+
+    return `https://${
+      this.env.COGNITO_DOMAIN
+    }/logout?response_type=code&client_id=${
+      this.env.COGNITO_CLIENT_ID
+    }&redirect_uri=${
+      this.redirect_uri ?? url.origin
+    }&scope=${this.gen_scoped_param()}`
   }
 }
