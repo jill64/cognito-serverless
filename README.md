@@ -4,7 +4,7 @@
 
 <!----- BEGIN GHOST DOCS BADGES ----->
 
-<a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/v/cognito-serverless" alt="npm-version" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/l/cognito-serverless" alt="npm-license" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/dm/cognito-serverless" alt="npm-download-month" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/bundlephobia/min/cognito-serverless" alt="npm-min-size" /></a> <a href="https://github.com/jill64/cognito-serverless/actions/workflows/ci.yml"><img src="https://github.com/jill64/cognito-serverless/actions/workflows/ci.yml/badge.svg" alt="ci.yml" /></a>
+<a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/v/cognito-serverless" alt="npm-version" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/l/cognito-serverless" alt="npm-license" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/dm/cognito-serverless" alt="npm-download-month" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/bundlephobia/min/cognito-serverless" alt="npm-min-size" /></a>
 
 <!----- END GHOST DOCS BADGES ----->
 
