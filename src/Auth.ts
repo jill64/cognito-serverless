@@ -88,7 +88,7 @@ export class Auth {
         },
         body: `grant_type=authorization_code&client_id=${
           this.env.COGNITO_CLIENT_ID
-        }&code=${code}&redirect_uri=${this.redirect_uri ?? param.redirect_uri}`
+        }&code=${code}&redirect_uri=${this.pick_redirect_uri(param)}`
       }
     )
 
@@ -100,9 +100,12 @@ export class Auth {
     }
 
     this.save_tokens(param, data)
-    const cognito_id = await this.get_user_info(param)
 
-    return cognito_id
+    return this.pick_redirect_uri(param)
+  }
+
+  private pick_redirect_uri(param: AuthParam) {
+    return param.redirect_uri || this.redirect_uri || param.url.origin
   }
 
   private async get_user_info({ cookies }: AuthParam) {
@@ -193,13 +196,13 @@ export class Auth {
 
     return `https://${this.env.COGNITO_DOMAIN}/oauth2/authorize?client_id=${
       this.env.COGNITO_CLIENT_ID
-    }&response_type=code&scope=${this.gen_scoped_param()}&redirect_uri=${
-      this.redirect_uri ?? param.redirect_uri
-    }`
+    }&response_type=code&scope=${this.gen_scoped_param()}&redirect_uri=${this.pick_redirect_uri(
+      param
+    )}`
   }
 
   async logout(param: AuthParam) {
-    const { cookies, url } = param
+    const { cookies } = param
 
     const refresh_token = cookies.get('refresh_token')
 
@@ -231,8 +234,8 @@ export class Auth {
       this.env.COGNITO_DOMAIN
     }/logout?response_type=code&client_id=${
       this.env.COGNITO_CLIENT_ID
-    }&redirect_uri=${
-      this.redirect_uri ?? url.origin
-    }&scope=${this.gen_scoped_param()}`
+    }&redirect_uri=${this.pick_redirect_uri(
+      param
+    )}&scope=${this.gen_scoped_param()}`
   }
 }
