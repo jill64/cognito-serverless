@@ -74,7 +74,7 @@ const exchange_code = async (event: RequestEvent, env: Env) => {
   }
 
   save_tokens(event, data)
-  const cognito_id = await get_user_cognito_id(event, env)
+  const cognito_id = await get_user_info(event, env)
 
   return cognito_id
 }
@@ -88,10 +88,7 @@ const is_user_info_response = scanner({
   phone_number: optional(string)
 })
 
-const get_user_cognito_id = async (
-  event: RequestEvent,
-  env: Env
-): Promise<string | null> => {
+const get_user_info = async (event: RequestEvent, env: Env) => {
   const access_token = event.cookies.get('access_token')
   const id_token = event.cookies.get('id_token')
 
@@ -115,13 +112,10 @@ const get_user_cognito_id = async (
     return null
   }
 
-  return data.sub
+  return data
 }
 
-const exchange_token = async (
-  event: RequestEvent,
-  env: Env
-): Promise<string | null> => {
+const exchange_token = async (event: RequestEvent, env: Env) => {
   const refresh_token = event.cookies.get('refresh_token')
 
   if (!refresh_token) {
@@ -147,9 +141,10 @@ const exchange_token = async (
   }
 
   save_tokens(event, data)
-  const cognito_id = await get_user_cognito_id(event, env)
 
-  return cognito_id
+  const user_info = await get_user_info(event, env)
+
+  return user_info
 }
 
 export type Cookies = {
@@ -169,13 +164,13 @@ export type Env = {
 }
 
 export const auth = async (event: { url: URL; cookies: Cookies }, env: Env) => {
-  const cognito_id =
-    (await get_user_cognito_id(event, env)) ??
+  const user_info =
+    (await get_user_info(event, env)) ??
     (await exchange_token(event, env)) ??
     (await exchange_code(event, env))
 
-  if (cognito_id) {
-    return cognito_id
+  if (user_info) {
+    return user_info
   }
 
   const error_description = event.url.searchParams.get('error_description')
