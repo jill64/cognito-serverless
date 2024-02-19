@@ -25,6 +25,7 @@ type AuthCodeResponse = Guarded<typeof is_auth_code_response>
 export class Auth {
   private env
   private scopes
+  private redirect_uri
 
   constructor(
     env: {
@@ -32,10 +33,12 @@ export class Auth {
       COGNITO_CLIENT_ID: string
       COGNITO_CLIENT_SECRET: string
     },
-    scopes?: ('openid' | 'profile' | 'email' | 'phone')[]
+    scopes?: ('openid' | 'profile' | 'email' | 'phone')[],
+    redirect_uri?: string
   ) {
     this.env = env
     this.scopes = scopes ?? ['openid', 'profile', 'email']
+    this.redirect_uri = redirect_uri
   }
 
   private gen_scoped_param() {
@@ -77,7 +80,9 @@ export class Auth {
           ).toString('base64')}`,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `grant_type=authorization_code&client_id=${this.env.COGNITO_CLIENT_ID}&code=${code}&redirect_uri=${param.redirect_uri}`
+        body: `grant_type=authorization_code&client_id=${
+          this.env.COGNITO_CLIENT_ID
+        }&code=${code}&redirect_uri=${this.redirect_uri ?? param.redirect_uri}`
       }
     )
 
@@ -180,15 +185,6 @@ export class Auth {
       )
     }
 
-    const redirect_url = new URL(
-      `https://${this.env.COGNITO_DOMAIN}/oauth2/authorize`
-    )
-
-    redirect_url.searchParams.set('client_id', this.env.COGNITO_CLIENT_ID)
-    redirect_url.searchParams.set('response_type', 'code')
-    redirect_url.searchParams.set('scope', this.gen_scoped_param())
-    redirect_url.searchParams.set('redirect_uri', param.redirect_uri)
-
-    return redirect_url
+    return `https://${this.env.COGNITO_DOMAIN}/oauth2/authorize?client_id=${this.env.COGNITO_CLIENT_ID}&response_type=code&scope=${this.gen_scoped_param()}&redirect_uri=${this.redirect_uri ?? param.redirect_uri}`
   }
 }
