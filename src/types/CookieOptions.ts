@@ -1,7 +1,5 @@
-export type CookieOptions = {
-  httpOnly?: boolean
-  secure?: boolean
-  sameSite?: 'strict' | 'lax' | 'none'
-  path?: string
-  maxAge?: number
+import type { CookieSerializeOptions } from 'cookie'
+
+export type CookieOptions = CookieSerializeOptions & {
+  path: string
 }
