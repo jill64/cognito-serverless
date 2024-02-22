@@ -24,6 +24,7 @@ export class Auth {
       COGNITO_DOMAIN: string
       COGNITO_CLIENT_ID: string
       COGNITO_CLIENT_SECRET: string
+      COGNITO_STATE?: string
     },
     scopes?: ('openid' | 'profile' | 'email' | 'phone')[],
     redirect_uri?: string
@@ -229,6 +230,26 @@ export class Auth {
     if (!response.ok) {
       throw new Error('Failed to revoke token')
     }
+
+    const secret = 'string'
+
+    const key = await crypto.subtle.importKey(
+      'raw',
+      Buffer.from(secret),
+      'AES-GCM',
+      true,
+      ['encrypt', 'decrypt']
+    )
+
+    const stateBuffer = await crypto.subtle.encrypt(
+      'AES-GCM',
+      key,
+      Buffer.from(new Date().toISOString())
+    )
+
+    const state = stateBuffer.toString()
+
+    console.log({ state })
 
     return `https://${
       this.env.COGNITO_DOMAIN

@@ -29,7 +29,9 @@ const cognito = new Auth(
   {
     COGNITO_DOMAIN: 'auth.example.com',
     COGNITO_CLIENT_ID: 'client-id',
-    COGNITO_CLIENT_SECRET: 'client-secret'
+    COGNITO_CLIENT_SECRET: 'client-secret',
+    // State is a random string to prevent CSRF attacks (optional)
+    COGNITO_STATE: 'random-string'
   },
   /*
    * The scopes of the access request.
