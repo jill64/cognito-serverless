@@ -15,7 +15,9 @@ setup('authenticate', async ({ page }) => {
 
   await page.getByRole('button', { name: 'submit' }).click()
 
-  await expect(page.getByRole('link', { name: 'Contact us' })).toBeVisible()
+  await expect(
+    page.getByRole('heading', { name: 'Login Successful' })
+  ).toBeVisible()
 
   await page.context().storageState({ path: authFile })
 })
