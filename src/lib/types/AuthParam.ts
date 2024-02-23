@@ -1,4 +1,4 @@
-import { Cookies } from './Cookies.js'
+import type { Cookies } from './Cookies.js'
 
 export type AuthParam = {
   url: URL
