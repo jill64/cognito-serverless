@@ -9,5 +9,5 @@ test('smoke', async ({ page }) => {
 
   await page.getByRole('link', { name: 'Logout' }).click()
 
-  await expect(page.getByPlaceholder('name@host.com')).toBeVisible()
+  await expect(page.getByPlaceholder('name@host.com').nth(1)).toBeVisible()
 })
