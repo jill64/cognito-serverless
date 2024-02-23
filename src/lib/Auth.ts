@@ -1,9 +1,10 @@
 import { Buffer } from 'buffer'
+import dayjs from 'dayjs'
 import { number, optional, scanner, string } from 'typescanner'
-import { CookieOptions } from './index.js'
+import type { CookieOptions } from './index.js'
 import { isUserInfoResponse } from './isUserInfoResponse.js'
-import { AuthParam } from './types/AuthParam.js'
-import { Guarded } from './types/Guarded.js'
+import type { AuthParam } from './types/AuthParam.js'
+import type { Guarded } from './types/Guarded.js'
 
 const is_auth_code_response = scanner({
   access_token: string,
@@ -24,6 +25,7 @@ export class Auth {
       COGNITO_DOMAIN: string
       COGNITO_CLIENT_ID: string
       COGNITO_CLIENT_SECRET: string
+      COGNITO_STATE?: string
     },
     scopes?: ('openid' | 'profile' | 'email' | 'phone')[],
     redirect_uri?: string
@@ -71,8 +73,24 @@ export class Auth {
     const { url } = param
 
     const code = url.searchParams.get('code')
+    const state = url.searchParams.get('state')
 
     if (!code) {
+      return null
+    }
+
+    if (code && !state) {
+      const url = await this.logout(param)
+      return url
+    }
+
+    const aes = await this.prepare_aes()
+    const decrypted_state = await aes.decrypt(state!)
+    const state_date = dayjs(decrypted_state)
+    const now = dayjs
+    const valid = now().diff(state_date, 'minute') < 5
+
+    if (!valid) {
       return null
     }
 
@@ -172,6 +190,63 @@ export class Auth {
     return user_info
   }
 
+  private buffer_to_hex = (arrayBuffer: ArrayBuffer) =>
+    [...new Uint8Array(arrayBuffer)]
+      .map((x) => x.toString(16).padStart(2, '0'))
+      .join('')
+
+  private async prepare_aes(): Promise<{
+    encrypt: (data: string) => Promise<string>
+    decrypt: (data: string) => Promise<string>
+  }> {
+    const key = await crypto.subtle.digest(
+      'SHA-256',
+      Buffer.from(this.env.COGNITO_CLIENT_SECRET)
+    )
+
+    const aes_key = await crypto.subtle.importKey(
+      'raw',
+      Buffer.from(key),
+      'AES-GCM',
+      true,
+      ['encrypt', 'decrypt']
+    )
+
+    return {
+      encrypt: async (data: string) => {
+        const iv = crypto.getRandomValues(new Uint8Array(12))
+        const encrypted = await crypto.subtle.encrypt(
+          {
+            iv,
+            name: 'AES-GCM'
+          },
+          aes_key,
+          Buffer.from(data)
+        )
+
+        return encodeURIComponent(
+          `${this.buffer_to_hex(iv)}:${this.buffer_to_hex(encrypted)}`
+        )
+      },
+      decrypt: async (data: string) => {
+        const [iv, encrypted] = decodeURIComponent(data)
+          .split(':')
+          .map((x) => Buffer.from(x, 'hex'))
+
+        const decrypted = await crypto.subtle.decrypt(
+          {
+            iv,
+            name: 'AES-GCM'
+          },
+          aes_key,
+          encrypted
+        )
+
+        return Buffer.from(decrypted).toString()
+      }
+    }
+  }
+
   async auth(param: AuthParam) {
     const user_info =
       (await this.get_user_info(param)) ??
@@ -194,11 +269,14 @@ export class Auth {
       )
     }
 
+    const aes = await this.prepare_aes()
+    const state = await aes.encrypt(new Date().toISOString())
+
     return `https://${this.env.COGNITO_DOMAIN}/oauth2/authorize?client_id=${
       this.env.COGNITO_CLIENT_ID
     }&response_type=code&scope=${this.gen_scoped_param()}&redirect_uri=${this.pick_redirect_uri(
       param
-    )}`
+    )}&state=${state}`
   }
 
   async logout(param: AuthParam) {
@@ -230,12 +308,15 @@ export class Auth {
       throw new Error('Failed to revoke token')
     }
 
+    const aes = await this.prepare_aes()
+    const state = await aes.encrypt(new Date().toISOString())
+
     return `https://${
       this.env.COGNITO_DOMAIN
     }/logout?response_type=code&client_id=${
       this.env.COGNITO_CLIENT_ID
     }&redirect_uri=${this.pick_redirect_uri(
       param
-    )}&scope=${this.gen_scoped_param()}`
+    )}&scope=${this.gen_scoped_param()}&state=${state}`
   }
 }

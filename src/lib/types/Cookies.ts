@@ -1,4 +1,4 @@
-import { CookieOptions } from './CookieOptions.js'
+import type { CookieOptions } from './CookieOptions.js'
 
 export type Cookies = {
   get: (key: string) => string | undefined | null
