@@ -27,6 +27,9 @@ jobs:
         run: npx playwright test
         env:
           HOSTING_PROVIDER: cloudflare
+          COGNITO_CLIENT_ID: ${{ secrets.COGNITO_CLIENT_ID }}
+          COGNITO_CLIENT_SECRET: ${{ secrets.COGNITO_CLIENT_SECRET }}
+          COGNITO_DOMAIN: ${{ vars.COGNITO_DOMAIN }}
           PLAYWRIGHT_EMAIL: ${{ secrets.PLAYWRIGHT_EMAIL }}
           PLAYWRIGHT_PASSWORD: ${{ secrets.PLAYWRIGHT_PASSWORD }}
 
