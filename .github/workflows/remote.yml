@@ -4,6 +4,7 @@ on: push
 
 jobs:
   remote:
+    if: github.ref_name == 'main' || github.ref_name == 'dev'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
