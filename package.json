@@ -64,11 +64,10 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jill64/cognito-serverless.git",
-    "image": "https://opengraph.githubassets.com/bda84180e1f2039120500d7aa3a96278451d61a382732a2b1a19dfe7bf11d825/jill64/cognito-serverless"
+    "image": "https://opengraph.githubassets.com/451ff4c5a0a1a004e46c1da1a06bfc3be9444b91fc503988a99864e42208f351/jill64/cognito-serverless"
   },
   "keywords": [
     "aws",
-    "beta",
     "cognito",
     "hosted-ui",
     "serverless"
