@@ -44,7 +44,7 @@
     "@types/node": "20.11.25",
     "svelte": "4.2.12",
     "typescript": "5.4.2",
-    "vite": "5.1.5"
+    "vite": "5.1.6"
   },
   "dependencies": {
     "@types/cookie": "0.6.0",
