@@ -38,7 +38,7 @@
     "@jill64/prettier-config": "1.0.0",
     "@jill64/sentry-sveltekit-cloudflare": "1.7.7",
     "@playwright/test": "1.41.2",
-    "@sveltejs/adapter-cloudflare": "4.1.0",
+    "@sveltejs/adapter-cloudflare": "4.2.0",
     "@sveltejs/kit": "2.5.3",
     "@sveltejs/vite-plugin-svelte": "3.0.2",
     "@types/node": "20.11.27",
