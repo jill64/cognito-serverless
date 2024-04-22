@@ -57,14 +57,14 @@
   "bugs": "https://github.com/jill64/cognito-serverless/issues",
   "author": {
     "name": "jill64",
-    "email": "intents.turrets0h@icloud.com",
+    "email": "contact@jill64.dev",
     "url": "https://github.com/jill64",
     "image": "https://avatars.githubusercontent.com/u/143883742?v=4"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jill64/cognito-serverless.git",
-    "image": "https://opengraph.githubassets.com/d027f06d16342a4bc8f8c62dc89229534fb69507e9c7878cf54fc025e8cc69ac/jill64/cognito-serverless"
+    "image": "https://opengraph.githubassets.com/a7f5b6693507e0b0c066ab832f2f2968d38b276d03cd5ce42d21e49a4993062d/jill64/cognito-serverless"
   },
   "keywords": [
     "aws",
