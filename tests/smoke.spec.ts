@@ -5,7 +5,6 @@ import 'dotenv/config'
 test('smoke', async ({page, isMobile}) => {
   await page.goto('/')
 
-  console.log('isMobile', isMobile)
   const n = isMobile ? 0 : 1
 
   await page
