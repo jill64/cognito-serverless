@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 import { env } from 'node:process'
 import 'dotenv/config'
 
-test('smoke', async ({page, isMobile}) => {
+test('smoke', async ({ page, isMobile }) => {
   await page.goto('/')
 
   console.log('isMobile', isMobile)
@@ -13,10 +13,7 @@ test('smoke', async ({page, isMobile}) => {
     .nth(n)
     .fill(env.PLAYWRIGHT_EMAIL!)
 
-  await page
-    .getByPlaceholder('Password')
-    .nth(n)
-    .fill(env.PLAYWRIGHT_PASSWORD!)
+  await page.getByPlaceholder('Password').nth(n).fill(env.PLAYWRIGHT_PASSWORD!)
 
   await page.getByRole('button', { name: 'submit' }).click()
 
