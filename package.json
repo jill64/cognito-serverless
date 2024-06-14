@@ -1,7 +1,7 @@
 {
   "name": "cognito-serverless",
   "description": "🔑 AWS Cognito Hosted UI OAuth on Serverless",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "main": "dist/index.js",
   "type": "module",
   "files": [
@@ -39,7 +39,7 @@
     "@jill64/sentry-sveltekit-cloudflare": "1.7.14",
     "@playwright/test": "1.44.1",
     "@sveltejs/adapter-cloudflare": "4.4.0",
-    "@sveltejs/kit": "2.5.13",
+    "@sveltejs/kit": "2.5.15",
     "@sveltejs/vite-plugin-svelte": "3.1.1",
     "@types/node": "20.14.2",
     "dotenv": "16.4.5",
@@ -65,7 +65,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jill64/cognito-serverless.git",
-    "image": "https://opengraph.githubassets.com/db5fa1475e6a297b5c4c2e9c4035ff2c2586e026d63352e2e4d2fe2798edd204/jill64/cognito-serverless"
+    "image": "https://opengraph.githubassets.com/7ca63f16540db5b92ac61979f5e08f821eedf9d507074c09629ab862a8915c06/jill64/cognito-serverless"
   },
   "keywords": [
     "aws",
