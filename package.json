@@ -33,7 +33,7 @@
     "svelte": "^4.0.0"
   },
   "devDependencies": {
-    "@jill64/eslint-config-svelte": "1.3.2",
+    "@jill64/eslint-config-svelte": "1.3.3",
     "@jill64/playwright-config": "2.4.0",
     "@jill64/prettier-config": "1.0.0",
     "@jill64/sentry-sveltekit-cloudflare": "1.7.15",
@@ -65,7 +65,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jill64/cognito-serverless.git",
-    "image": "https://opengraph.githubassets.com/c50fdf638b35a02c253e0f739431f17a6533f349d4024cba8fca8f43d63d6c36/jill64/cognito-serverless"
+    "image": "https://opengraph.githubassets.com/93677f39fb206eb63e004807bd0d8acc9035285786d5effeb0689bc440440025/jill64/cognito-serverless"
   },
   "keywords": [
     "aws",
