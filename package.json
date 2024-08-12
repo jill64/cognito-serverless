@@ -65,7 +65,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/jill64/cognito-serverless.git",
-    "image": "https://opengraph.githubassets.com/5c053fe2673382eb62bf940f800c49d05268d9d7d6958c7f688a02445f3049bb/jill64/cognito-serverless"
+    "image": "https://opengraph.githubassets.com/b265de8dacf44de5ed48e2317d26ba28bd5ae0e233a4b26e8ca6f8c54769f620/jill64/cognito-serverless"
   },
   "keywords": [
     "aws",
