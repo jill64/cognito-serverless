@@ -43,7 +43,7 @@
     "@sveltejs/vite-plugin-svelte": "3.1.2",
     "@types/node": "20.16.1",
     "dotenv": "16.4.5",
-    "svelte": "4.2.18",
+    "svelte": "4.2.19",
     "typescript": "5.5.4",
     "vite": "5.4.2"
   },
