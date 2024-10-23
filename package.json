@@ -45,7 +45,7 @@
     "dotenv": "16.4.5",
     "svelte": "5.0.5",
     "typescript": "5.6.3",
-    "vite": "5.4.9"
+    "vite": "5.4.10"
   },
   "dependencies": {
     "@types/cookie": "0.6.0",
@@ -65,7 +65,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jill64/cognito-serverless.git",
-    "image": "https://opengraph.githubassets.com/501e4a16ca68084c52b5911b7485e5191c3ed3281309a5b726693be41ce6f949/jill64/cognito-serverless"
+    "image": "https://opengraph.githubassets.com/6e5a6846307d9f6f26a5be01ee8c32eb6e41471f9246156c8b1f20c3e580b76e/jill64/cognito-serverless"
   },
   "keywords": [
     "aws",
