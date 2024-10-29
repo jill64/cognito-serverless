@@ -1,7 +1,7 @@
 {
   "name": "cognito-serverless",
   "description": "🔑 AWS Cognito Hosted UI OAuth on Serverless",
-  "version": "0.5.9",
+  "version": "0.5.10",
   "main": "dist/index.js",
   "type": "module",
   "files": [
