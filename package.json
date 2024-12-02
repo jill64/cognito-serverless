@@ -45,7 +45,7 @@
     "dotenv": "16.4.5",
     "svelte": "5.1.2",
     "typescript": "5.7.2",
-    "vite": "6.0.1"
+    "vite": "6.0.2"
   },
   "dependencies": {
     "@types/cookie": "1.0.0",
