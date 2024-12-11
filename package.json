@@ -41,7 +41,7 @@
     "@sveltejs/adapter-cloudflare": "4.8.0",
     "@sveltejs/kit": "2.8.3",
     "@sveltejs/vite-plugin-svelte": "3.1.2",
-    "@types/node": "22.10.1",
+    "@types/node": "22.10.2",
     "dotenv": "16.4.7",
     "svelte": "5.1.2",
     "typescript": "5.7.2",
