@@ -40,7 +40,7 @@
     "@playwright/test": "1.49.1",
     "@sveltejs/adapter-cloudflare": "5.0.0",
     "@sveltejs/kit": "2.15.1",
-    "@sveltejs/vite-plugin-svelte": "3.1.2",
+    "@sveltejs/vite-plugin-svelte": "5.0.3",
     "@types/node": "22.10.2",
     "dotenv": "16.4.7",
     "svelte": "5.16.0",
