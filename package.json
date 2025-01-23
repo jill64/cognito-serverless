@@ -41,7 +41,7 @@
     "@sveltejs/adapter-cloudflare": "5.0.1",
     "@sveltejs/kit": "2.15.1",
     "@sveltejs/vite-plugin-svelte": "5.0.3",
-    "@types/node": "22.10.9",
+    "@types/node": "22.10.10",
     "dotenv": "16.4.7",
     "svelte": "5.16.2",
     "typescript": "5.7.3",
@@ -65,7 +65,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jill64/cognito-serverless.git",
-    "image": "https://opengraph.githubassets.com/e1a6aa1b6544cf549f83e029039c67f06c228e6769d0f02557d47ba3a6e99862/jill64/cognito-serverless"
+    "image": "https://opengraph.githubassets.com/9c784bee60bd61571537ca0820a4b7ac41270a98136d066e750ffa873827f22a/jill64/cognito-serverless"
   },
   "keywords": [
     "aws",
