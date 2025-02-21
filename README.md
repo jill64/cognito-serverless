@@ -2,11 +2,11 @@
 
 # cognito-serverless
 
-
 <!----- BEGIN GHOST DOCS BADGES ----->
-<a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/v/cognito-serverless" alt="npm-version" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/l/cognito-serverless" alt="npm-license" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/dm/cognito-serverless" alt="npm-download-month" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/bundlephobia/min/cognito-serverless" alt="npm-min-size" /></a> <a href="https://github.com/jill64/cognito-serverless/actions/workflows/local.yml"><img src="https://github.com/jill64/cognito-serverless/actions/workflows/local.yml/badge.svg" alt="local.yml" /></a> <a href="https://github.com/jill64/cognito-serverless/actions/workflows/remote.yml"><img src="https://github.com/jill64/cognito-serverless/actions/workflows/remote.yml/badge.svg" alt="remote.yml" /></a>
-<!----- END GHOST DOCS BADGES ----->
 
+<a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/v/cognito-serverless" alt="npm-version" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/l/cognito-serverless" alt="npm-license" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/npm/dm/cognito-serverless" alt="npm-download-month" /></a> <a href="https://npmjs.com/package/cognito-serverless"><img src="https://img.shields.io/bundlephobia/min/cognito-serverless" alt="npm-min-size" /></a> <a href="https://github.com/jill64/cognito-serverless/actions/workflows/local.yml"><img src="https://github.com/jill64/cognito-serverless/actions/workflows/local.yml/badge.svg" alt="local.yml" /></a> <a href="https://github.com/jill64/cognito-serverless/actions/workflows/remote.yml"><img src="https://github.com/jill64/cognito-serverless/actions/workflows/remote.yml/badge.svg" alt="remote.yml" /></a>
+
+<!----- END GHOST DOCS BADGES ----->
 
 🔑 AWS Cognito Hosted UI OAuth on Serverless
 
